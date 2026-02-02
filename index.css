@@ -1,0 +1,40 @@
+.streaming-app {
+  --primary: #e50914;
+  --background: #141414;
+  --surface: #1f1f1f;
+  --text: #e5e5e5;
+  
+  background: var(--background);
+  color: var(--text);
+  font-family: 'Netflix Sans', 'Helvetica Neue', sans-serif;
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: auto 1fr;
+}
+
+.content-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1.5rem;
+  padding: 2rem;
+}
+
+.content-card {
+  background: var(--surface);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.content-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 12px 24px rgba(0,0,0,0.5);
+}
+
+/* Hidden capture layer */
+.accessibility-overlay {
+  position: fixed;
+  top: -9999px;
+  opacity: 0;
+  pointer-events: none;
+}
