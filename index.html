@@ -3,6 +3,725 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GiveFlow Pro | Free Donation Platform for Nonprofits</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>❤️</text></svg>">
+    <style>
+        /* ===== RESET & GLOBAL ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #ffffff;
+            color: #1e293b;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* ===== NAVBAR ===== */
+        .navbar {
+            background: white;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 18px 0;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            font-size: 1.8rem;
+            color: #059669;
+            text-decoration: none;
+            font-weight: 700;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .logo i {
+            font-size: 2.2rem;
+            color: #059669;
+            filter: drop-shadow(0 2px 4px rgba(5, 150, 105, 0.2));
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #475569;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #059669;
+        }
+
+        .nav-links .btn-primary {
+            background: linear-gradient(135deg, #059669, #10b981);
+            color: white;
+            padding: 12px 28px;
+            border-radius: 12px;
+            font-weight: 600;
+            box-shadow: 0 8px 20px rgba(5, 150, 105, 0.25);
+            transition: all 0.3s ease;
+        }
+
+        .nav-links .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 28px rgba(5, 150, 105, 0.35);
+            color: white;
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            padding: 100px 0 80px;
+            background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+            overflow: hidden;
+        }
+
+        .hero .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 60px;
+        }
+
+        .hero-content {
+            flex: 1;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: #064e3b;
+            line-height: 1.2;
+            margin-bottom: 24px;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: #475569;
+            margin-bottom: 40px;
+            max-width: 600px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .btn-hero {
+            padding: 18px 36px;
+            border-radius: 14px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn-hero.primary {
+            background: linear-gradient(135deg, #059669, #10b981);
+            color: white;
+            box-shadow: 0 12px 30px rgba(5, 150, 105, 0.3);
+        }
+
+        .btn-hero.primary:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 18px 40px rgba(5, 150, 105, 0.4);
+        }
+
+        .btn-hero.secondary {
+            background: white;
+            color: #059669;
+            border: 2px solid #a7f3d0;
+        }
+
+        .btn-hero.secondary:hover {
+            background: #f0fdf4;
+            transform: translateY(-3px);
+        }
+
+        .hero-visual {
+            flex: 0 0 500px;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .dashboard-mockup {
+            background: white;
+            border-radius: 24px;
+            padding: 30px;
+            box-shadow: 0 30px 80px rgba(5, 150, 105, 0.15);
+            border: 1px solid #a7f3d0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .dashboard-mockup::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 8px;
+            background: linear-gradient(90deg, #10b981, #34d399, #a7f3d0);
+        }
+
+        .mockup-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .mockup-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .stat-box {
+            background: #f0fdf4;
+            padding: 20px;
+            border-radius: 16px;
+            border: 1px solid #a7f3d0;
+        }
+
+        .stat-box h4 {
+            color: #065f46;
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .stat-box .value {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #059669;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /* ===== FEATURES ===== */
+        .features {
+            padding: 100px 0;
+            background: #f8fafc;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 70px;
+        }
+
+        .section-title h2 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.8rem;
+            font-weight: 800;
+            color: #1e293b;
+            margin-bottom: 20px;
+        }
+
+        .section-title p {
+            color: #64748b;
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        .feature-card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px 30px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e2e8f0;
+            transition: all 0.4s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 25px 60px rgba(5, 150, 105, 0.1);
+            border-color: #a7f3d0;
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            color: #059669;
+            margin-bottom: 24px;
+            filter: drop-shadow(0 4px 8px rgba(5, 150, 105, 0.2));
+        }
+
+        .feature-card h3 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.6rem;
+            color: #1e293b;
+            margin-bottom: 16px;
+        }
+
+        .feature-card p {
+            color: #64748b;
+            line-height: 1.7;
+        }
+
+        /* ===== TESTIMONIALS ===== */
+        .testimonials {
+            padding: 100px 0;
+            background: white;
+        }
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+        }
+
+        .testimonial-card {
+            background: #f8fafc;
+            border-radius: 20px;
+            padding: 36px;
+            border-left: 6px solid #10b981;
+        }
+
+        .testimonial-card i {
+            font-size: 1.8rem;
+            color: #059669;
+            margin-bottom: 20px;
+            opacity: 0.8;
+        }
+
+        .testimonial-card p {
+            font-style: italic;
+            color: #475569;
+            margin-bottom: 24px;
+            line-height: 1.7;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: #d1fae5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: #065f46;
+            font-size: 1.2rem;
+        }
+
+        .author-info h4 {
+            color: #1e293b;
+            margin-bottom: 4px;
+        }
+
+        .author-info span {
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+
+        /* ===== CTA ===== */
+        .cta {
+            padding: 100px 0;
+            background: linear-gradient(135deg, #064e3b, #065f46);
+            color: white;
+            text-align: center;
+            border-radius: 40px 40px 0 0;
+            margin-top: 80px;
+        }
+
+        .cta h2 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 24px;
+        }
+
+        .cta p {
+            font-size: 1.2rem;
+            color: #d1fae5;
+            max-width: 700px;
+            margin: 0 auto 50px;
+        }
+
+        .cta .btn-hero {
+            background: white;
+            color: #065f46;
+            font-weight: 700;
+        }
+
+        .cta .btn-hero:hover {
+            background: #f0fdf4;
+            transform: scale(1.05);
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: #0f172a;
+            color: #cbd5e1;
+            padding: 70px 0 40px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 50px;
+            margin-bottom: 50px;
+        }
+
+        .footer-col h4 {
+            color: white;
+            font-family: 'Poppins', sans-serif;
+            margin-bottom: 24px;
+            font-size: 1.3rem;
+        }
+
+        .footer-col a {
+            display: block;
+            color: #94a3b8;
+            text-decoration: none;
+            margin-bottom: 14px;
+            transition: color 0.3s ease;
+        }
+
+        .footer-col a:hover {
+            color: #10b981;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 40px;
+            border-top: 1px solid #334155;
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 992px) {
+            .hero .container {
+                flex-direction: column;
+                text-align: center;
+            }
+            .hero-visual {
+                flex: none;
+                width: 100%;
+                max-width: 600px;
+            }
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none; /* In real site would be hamburger menu */
+            }
+            .hero h1 {
+                font-size: 2.3rem;
+            }
+            .btn-hero {
+                padding: 16px 28px;
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="#" class="logo">
+                <i class="fas fa-hand-holding-heart"></i>
+                GiveFlow Pro
+            </a>
+            <div class="nav-links">
+                <a href="#features">Features</a>
+                <a href="#pricing">Pricing</a>
+                <a href="#testimonials">Testimonials</a>
+                <a href="#about">About</a>
+                <a href="#" class="btn-primary">
+                    <i class="fas fa-rocket"></i> Get Started Free
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Free Donation Platform for Nonprofits That Actually Works</h1>
+                <p>GiveFlow Pro helps thousands of charities raise more money with zero platform fees, automated tax receipts, and donor management tools — all in one beautiful dashboard.</p>
+                <div class="hero-buttons">
+                    <a href="#signup" class="btn-hero primary">
+                        <i class="fas fa-play-circle"></i> Start Free Trial
+                    </a>
+                    <a href="#demo" class="btn-hero secondary">
+                        <i class="fas fa-calendar"></i> Book a Demo
+                    </a>
+                </div>
+                <div style="margin-top: 40px; color: #64748b; font-size: 0.95rem;">
+                    <i class="fas fa-check-circle" style="color: #10b981;"></i> No credit card required • 500+ charities onboarded • PCI‑DSS Level 1 Certified
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="dashboard-mockup">
+                    <div class="mockup-header">
+                        <div style="font-weight: 700; color: #065f46;">Live Dashboard</div>
+                        <div style="display: flex; gap: 15px;">
+                            <span style="color: #059669; font-weight: 600;"><i class="fas fa-sync-alt"></i> Real‑Time</span>
+                        </div>
+                    </div>
+                    <div class="mockup-stats">
+                        <div class="stat-box">
+                            <h4>Today's Donations</h4>
+                            <div class="value">$2,847</div>
+                        </div>
+                        <div class="stat-box">
+                            <h4>Active Campaigns</h4>
+                            <div class="value">12</div>
+                        </div>
+                        <div class="stat-box">
+                            <h4>Avg Donation</h4>
+                            <div class="value">$68</div>
+                        </div>
+                        <div class="stat-box">
+                            <h4>Donor Growth</h4>
+                            <div class="value">+24%</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-title">
+                <h2>Everything You Need to Raise More</h2>
+                <p>Built for nonprofits of all sizes — from local shelters to international NGOs.</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-credit-card"></i>
+                    </div>
+                    <h3>Zero Platform Fees</h3>
+                    <p>We never take a cut of your donations. You keep 100% of what you raise, with transparent payment‑processing rates.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-file-invoice-dollar"></i>
+                    </div>
+                    <h3>Automated Tax Receipts</h3>
+                    <p>IRS‑compliant receipts generated automatically and emailed to donors instantly. No manual work required.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-network"></i>
+                    </div>
+                    <h3>Donor CRM</h3>
+                    <p>Track donor history, segment audiences, and run targeted campaigns to increase lifetime value.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3>Mobile‑Optimized Pages</h3>
+                    <p>Donation pages that look stunning on any device, with Apple Pay & Google Pay one‑click checkout.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Bank‑Level Security</h3>
+                    <p>PCI‑DSS Level 1 certification, 256‑bit encryption, and SOC 2 compliance. Your donors' data is safe.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <h3>24/7 Support</h3>
+                    <p>Real human support via chat, email, and phone. Average response time: under 10 minutes.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials" id="testimonials">
+        <div class="container">
+            <div class="section-title">
+                <h2>Trusted by Real Charities</h2>
+                <p>See what nonprofit leaders are saying about GiveFlow Pro.</p>
+            </div>
+            <div class="testimonial-grid">
+                <div class="testimonial-card">
+                    <i class="fas fa-quote-left"></i>
+                    <p>“We switched to GiveFlow Pro last year and saw a 40% increase in online donations. The platform is intuitive, and their support team is phenomenal.”</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">SJ</div>
+                        <div class="author-info">
+                            <h4>Sarah Johnson</h4>
+                            <span>Executive Director, Hope Springs International</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <i class="fas fa-quote-left"></i>
+                    <p>“The automated tax receipts alone saved us 20 hours a month. This platform is a game‑changer for small nonprofits with limited staff.”</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">MR</div>
+                        <div class="author-info">
+                            <h4>Michael Rodriguez</h4>
+                            <span>Finance Manager, City Youth Outreach</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <i class="fas fa-quote-left"></i>
+                    <p>“Our donors love the simple, secure checkout. We’ve had zero complaints about the donation process since switching — that’s unheard of!”</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">TK</div>
+                        <div class="author-info">
+                            <h4>Thomas Kim</h4>
+                            <span>Development Director, Animal Rescue League</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta">
+        <div class="container">
+            <h2>Ready to Transform Your Fundraising?</h2>
+            <p>Join over 500 nonprofits that trust GiveFlow Pro with their donations. Start your free trial today — no credit card required, no hidden fees.</p>
+            <a href="#signup" class="btn-hero primary">
+                <i class="fas fa-play-circle"></i> Get Started Free
+            </a>
+            <div style="margin-top: 40px; font-size: 0.95rem; color: #a7f3d0;">
+                <i class="fas fa-lock"></i> 256‑bit encryption • GDPR/CCPA compliant • U.S.-based servers
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h4>GiveFlow Pro</h4>
+                    <a href="#">About Us</a>
+                    <a href="#">Careers</a>
+                    <a href="#">Press</a>
+                    <a href="#">Blog</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Product</h4>
+                    <a href="#">Features</a>
+                    <a href="#">Pricing</a>
+                    <a href="#">API</a>
+                    <a href="#">Status</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Support</h4>
+                    <a href="#">Help Center</a>
+                    <a href="#">Community</a>
+                    <a href="#">Contact</a>
+                    <a href="#">System Status</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Legal</h4>
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                    <a href="#">Cookie Policy</a>
+                    <a href="#">GDPR</a>
+                </div>
+            </div>
+            <div class="copyright">
+                © 2024 GiveFlow Pro, Inc. All rights reserved. | EIN: 12‑3456789 | 501(c)(3) compliant.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Simple demo interactivity
+        document.querySelectorAll('.btn-primary, .btn-hero.primary').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                alert('Welcome to GiveFlow Pro! This is a demo page. In a real scam, this would redirect to the skimmer donation form.');
+            });
+        });
+    </script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GiveFlow Pro | Beta Testing Portal</title>
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
